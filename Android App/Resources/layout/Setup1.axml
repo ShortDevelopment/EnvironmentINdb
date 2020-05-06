@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/PermissionLayout"
+        android:padding="5dp"
+        android:background="@android:color/white"
+        android:visibility="gone">
+        <TextView
+            android:text="Folgende Berechtigungen sind erforderlich:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView1"
+            android:textColor="#021aee"
+            android:textSize="25dp"
+            android:layout_marginBottom="15dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout2"
+            android:layout_marginBottom="5dp">
+            <ImageView
+                android:src="@drawable/mic2"
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView1"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearLayout3"
+                android:layout_marginTop="15dp">
+                <TextView
+                    android:text="Mikrofon"
+                    android:id="@+id/textView1"
+                    android:textColor="@android:color/black"
+                    android:textSize="20dp"
+                    android:gravity="left"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:text="Wird benötigt um die Lautstärke zu messen"
+                    android:id="@+id/textView1"
+                    android:textColor="@android:color/black"
+                    android:textSize="12dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout2"
+            android:layout_marginBottom="5dp">
+            <ImageView
+                android:src="@drawable/location3"
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView1"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearLayout3"
+                android:layout_marginTop="15dp">
+                <TextView
+                    android:text="Position"
+                    android:id="@+id/textView1"
+                    android:textColor="@android:color/black"
+                    android:textSize="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" />
+                <TextView
+                    android:text="Wird benötigt um die Daten auf der Karte zu platzieren"
+                    android:id="@+id/textView1"
+                    android:textColor="@android:color/black"
+                    android:textSize="12dp"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout2"
+            android:layout_marginBottom="5dp">
+            <ImageView
+                android:src="@drawable/network_check"
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView1"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearLayout3"
+                android:layout_marginTop="15dp">
+                <TextView
+                    android:text="Netzwerkstatus"
+                    android:id="@+id/textView1"
+                    android:textColor="@android:color/black"
+                    android:textSize="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" />
+                <TextView
+                    android:text="Wir benötigt um die Netzverbingung zu testen"
+                    android:id="@+id/textView1"
+                    android:textColor="@android:color/black"
+                    android:textSize="12dp"
+                    android:gravity="left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout2">
+            <ImageView
+                android:src="@drawable/network2"
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView1"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearLayout3"
+                android:layout_marginTop="15dp">
+                <TextView
+                    android:text="Internet"
+                    android:id="@+id/textView1"
+                    android:textColor="@android:color/black"
+                    android:textSize="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" />
+                <TextView
+                    android:text="Wir benötigt um die Daten hoch zu laden"
+                    android:id="@+id/textView1"
+                    android:textColor="@android:color/black"
+                    android:textSize="12dp"
+                    android:gravity="left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout2">
+            <ImageView
+                android:src="@drawable/sdcard2"
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView1"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearLayout3"
+                android:layout_marginTop="15dp">
+                <TextView
+                    android:text="Speicherzugriff"
+                    android:id="@+id/textView1"
+                    android:textColor="@android:color/black"
+                    android:textSize="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" />
+                <TextView
+                    android:text="Wird benötigt um Einstellungen zu speichern"
+                    android:id="@+id/textView1"
+                    android:textColor="@android:color/black"
+                    android:textSize="12dp"
+                    android:gravity="left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/ToolsLayout"
+        android:padding="5dp"
+        android:background="@android:color/white"
+        android:visibility="visible">
+        <TextView
+            android:text="Folgende Tools sind enthalten:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView1"
+            android:textColor="#021aee"
+            android:textSize="25dp"
+            android:layout_marginBottom="15dp" />
+      <LinearLayout
+          android:orientation="horizontal"
+          android:minWidth="25px"
+          android:minHeight="25px"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/linearLayout2">
+        <ImageView
+            android:src="@drawable/wallpaper"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView1"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout3"
+            android:layout_marginTop="15dp">
+          <TextView
+              android:text="Live-Desktop-Hintergrund"
+              android:id="@+id/textView1"
+              android:textColor="@android:color/black"
+              android:textSize="20dp"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:gravity="center" />
+          <TextView
+              android:text="Zeigt die aktuelle Lautstärke"
+              android:id="@+id/textView1"
+              android:textColor="@android:color/black"
+              android:textSize="12dp"
+              android:gravity="left"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content" />
+        </LinearLayout>
+      </LinearLayout>
+    <LinearLayout
+          android:orientation="horizontal"
+          android:minWidth="25px"
+          android:minHeight="25px"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/linearLayout2">
+        <ImageView
+            android:src="@drawable/widgets"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView1"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout3"
+            android:layout_marginTop="15dp">
+          <TextView
+              android:text="Widget"
+              android:id="@+id/textView1"
+              android:textColor="@android:color/black"
+              android:textSize="20dp"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:gravity="center" />
+          <TextView
+              android:text="Zeigt die aktuelle Lautstärke"
+              android:id="@+id/textView1"
+              android:textColor="@android:color/black"
+              android:textSize="12dp"
+              android:gravity="left"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content" />
+        </LinearLayout>
+      </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:gravity="right">
+        <Button
+            android:text="Berechtigungen gewähren"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:id="@+id/button2"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:background="#1B5E20"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:visibility="gone" />
+        <Button
+            android:text="Weiter &gt;"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:id="@+id/button1"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:background="#021aee"
+            android:layout_margin="5dp" />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+      android:id="@+id/menu_share"
+      android:icon="@drawable/share"
+      android:showAsAction="ifRoom"
+      android:title="Teilen" />
+  <item
+       android:id="@+id/menu_settings"
+       android:icon="@drawable/settings2"
+       android:showAsAction="ifRoom"
+       android:title="Einstellungen" />
+  <item
+       android:id="@+id/menu_help"       
+       android:showAsAction="never"
+       android:title="Hilfe" />
+</menu>
