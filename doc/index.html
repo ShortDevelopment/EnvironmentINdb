@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <link href="Media/favicon.ico" rel="icon" />
+    <link href="Media/favicon.ico" rel="shortcut icon" />
+    <link href="Media/mess.png" rel="apple-touch-icon" />
+    <meta name="viewport" media="screen and (max-width: 1000px)" content="width=500px, initial-scale=0.6">
+    <title>EnvironmentINdb</title>
+    <style>
+        body
+        {
+            margin:0px;
+            font-family:sans-serif;
+            line-height:20px;
+            font-size:15px;
+        }
+        #myMap{
+            width:100%;
+            height:700px;
+            border:1px solid red;
+            display:block;    
+        }
+        #header{
+            width:100%;
+            height:150px;
+            transition:height 1s;
+            background-image:url('environment.jpg');
+            background-size:cover;
+            background-position-y:-200px;
+            position:relative;
+            z-index:2;
+            overflow-x:hidden;
+        }
+        #header h1{
+            margin:0px;
+            padding:0px;
+            color:white;
+            position:absolute;
+            top:50%;
+            left:5%;
+            transform:translate(0px, -50%);
+        }
+        a{
+            color:blue;
+            text-decoration:none;
+        }
+        a:hover{
+            text-decoration:underline;
+        }
+    </style>    
+</head>
+<body>
+    <div id="header">
+        <h1>EnvironmentINdb</h1>
+        <style>
+            #countercontainer {
+                position:absolute;
+                bottom:10px;
+                right:10px;
+                color:white;
+                display:none;
+            }
+        </style>
+        <p id="countercontainer" style="font-family:consolas; text-align:right;">
+            <label style="display:block; font-size:15px;">Wir haben schon</label>
+            <label id="counter" style="display:block; font-size:25px; padding-left:70px;">loading...</label>
+            <label style="display:block; font-size:15px;">Messpunkte!</label>
+        </p>
+        <script>
+            init();
+            function init() {
+                var a = new XMLHttpRequest();
+                a.open("GET", "http://umwelt.kurzweb.de/main.php", true);
+                a.onload = function() {
+                    document.getElementById("counter").innerHTML = a.responseText;
+                    console.info("Daten geladen!")
+                }
+                a.onerror = function() {
+                    console.error("Fehler beim Laden der Daten: " + a.response)
+                    document.getElementById("counter").innerHTML = '<i style="color:red;">Fehler</i>';
+                }
+                a.send();
+            }
+        </script>
+    </div>    
+    <center style="margin-bottom:15px; border-spacing: 10px;">
+        <p>
+            Unser Projekt und die dazu gehörige Dokumentation ist auf <a href="https://github.com/ShortDevelopment/EnvironmentINdb">hier auf GitHub</a> archiviert.<br/>
+            Die ehemalige Hilfe ist <a href="help/">hier</a> zu finden.
+        </p>
+        <iframe width="560" height="315" style="margin-top:10px" src="https://www.youtube-nocookie.com/embed/WxqFoGLFhfk?autoplay=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen autoplay></iframe>
+
+    </center>
+    </body>
+</html>

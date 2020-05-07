@@ -1,0 +1,258 @@
+﻿<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Designer</title>        
+</head>
+<body>
+    <div>
+        <style>
+            #screen {
+                width: 360px;
+                height: 640px;
+                background-image: url('Media/screen1.png');
+                background-size: cover;
+                position: relative;
+            }
+            #title {
+                position: absolute;
+                left: 0px;
+                top: 24px;
+                width: 360px;
+                height: 48px;
+                background-color: #1f669b;
+                z-index: -1;
+            }
+            #title label {
+                position: absolute;
+                left: 15px;
+                top: 17px;
+                font-size: 14px;
+                font-family: sans-serif;
+                color: #FF8000;
+                font-weight: 500;
+            }
+            #content {
+                position: absolute;
+                left: 0px;
+                top: 72px;
+                width: 360px;
+                height: 470px;
+                background-color: #fafafa;
+                z-index: -1;
+            }
+            #footer {
+                position: absolute;
+                left: 0px;
+                top: 542px;
+                width: 360px;
+                height: 50px;
+                background-color: #ffbb33;
+                z-index: -1;
+            }
+            .selector {
+                margin: 20px;
+            }
+            .selector label {
+                display: inline-block;
+                font-size: 20px;
+                font-family: Consolas;
+            }
+            #button {
+                border: 2px solid black;
+                border-radius: 2px;
+                background-color: white;
+                cursor: pointer;
+            }
+            #button:hover {
+                background-color: lightgray;
+            }
+        </style>
+        <table>
+            <tr>
+                <td>
+                    <div id="screen">
+                        <div id="title"><label id="titletext">EnvironmentINdb</label></div>
+                        <div id="content"></div>
+                        <div id="footer"></div>
+                    </div>
+                </td>
+                <td>
+                    <form action="main.php" method="post">
+                        <div class="selector">
+                            <label class="heading">Titelleiste Hintergrund</label>
+                            <table>
+                                <tr>
+                                    <td>Rot</td>
+                                    <td>
+                                        <input id="tr" type="range" min="0" max="255" onchange="change('title', 'r', this.value)" oninput="change('title', 'r', this.value);" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Gr&uuml;n</td>
+                                    <td>
+                                        <input id="tg" type="range" min="0" max="255" onchange="change('title', 'g', this.value)" oninput="change('title', 'g', this.value);" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Blau</td>
+                                    <td>
+                                        <input id="tb" type="range" min="0" max="255" onchange="change('title', 'b', this.value)" oninput="change('title', 'b', this.value);" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="selector">
+                            <label class="heading">Titelleiste TextFarbe</label>
+                            <table>
+                                <tr>
+                                    <td>Rot</td>
+                                    <td>
+                                        <input id="ttr" type="range" min="0" max="255" onchange="change('titletext', 'r', this.value)" oninput="change('titletext', 'r', this.value);" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Gr&uuml;n</td>
+                                    <td>
+                                        <input id="ttg" type="range" min="0" max="255" onchange="change('titletext', 'g', this.value)" oninput="change('titletext', 'g', this.value);" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Blau</td>
+                                    <td>
+                                        <input id="ttb" type="range" min="0" max="255" onchange="change('titletext', 'b', this.value)" oninput="change('titletext', 'b', this.value);" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="selector">
+                            <label class="heading">Hintergrund</label>
+                            <table>
+                                <tr>
+                                    <td>Rot</td>
+                                    <td>
+                                        <input id="cr" type="range" min="0" max="255" onchange="change('content', 'r', this.value)" oninput="change('content', 'r', this.value);" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Gr&uuml;n</td>
+                                    <td>
+                                        <input id="cg" type="range" min="0" max="255" onchange="change('content', 'g', this.value)" oninput="change('content', 'g', this.value);" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Blau</td>
+                                    <td>
+                                        <input id="cb" type="range" min="0" max="255" onchange="change('content', 'b', this.value)" oninput="change('content', 'b', this.value);" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="selector">
+                            <label class="heading">Menüleiste Hintergrund</label>
+                            <table>
+                                <tr>
+                                    <td>Rot</td>
+                                    <td>
+                                        <input id="mr" type="range" min="0" max="255" value="255" onchange="change('menu', 'r', this.value)" oninput="change('menu', 'r', this.value);" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Gr&uuml;n</td>
+                                    <td>
+                                        <input id="mg" type="range" min="0" max="255" value="255" onchange="change('menu', 'g', this.value)" oninput="change('menu', 'g', this.value);" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Blau</td>
+                                    <td>
+                                        <input id="mb" type="range" min="0" max="255" value="255" onchange="change('menu', 'b', this.value)" oninput="change('menu', 'b', this.value);" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <center><button id="button"><img src="Media/exportieren.png" />Exportieren</button></center>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <script>
+        var tr = 31, tg = 102, tb = 155, ttr = 255, ttg = 128, ttb = 0, cr = 250, cg = 250, cb = 250, mr = 255, mg = 187, mb = 51;
+        document.getElementById("tr").value = tr;
+        document.getElementById("tg").value = tg;
+        document.getElementById("tb").value = tb;
+        document.getElementById("ttr").value = ttr;
+        document.getElementById("ttg").value = ttg;
+        document.getElementById("ttb").value = ttb;
+        document.getElementById("cr").value = cr;
+        document.getElementById("cg").value = cg;
+        document.getElementById("cb").value = cb;
+        document.getElementById("mr").value = mr;
+        document.getElementById("mg").value = mg;
+        document.getElementById("mb").value = mb;
+        function change(ele, color, value) {
+            if (ele == "title") {
+                if (color == "r") {
+                    tr = value;
+                }
+                if (color == "g") {
+                    tg = value;
+                }
+                if (color == "b") {
+                    tb = value;
+                }
+                document.getElementById("title").style.backgroundColor = "rgb(" + tr + ", " + tg + ", " + tb + ")";
+            } else if (ele == "titletext") {
+                if (color == "r") {
+                    ttr = value;
+                }
+                if (color == "g") {
+                    ttg = value;
+                }
+                if (color == "b") {
+                    ttb = value;
+                }
+                document.getElementById("titletext").style.color = "rgb(" + ttr + ", " + ttg + ", " + ttb + ")";
+            }else if (ele == "content") {
+                if (color == "r") {
+                    cr = value;
+                }
+                if (color == "g") {
+                    cg = value;
+                }
+                if (color == "b") {
+                    cb = value;
+                }
+                document.getElementById("content").style.backgroundColor = "rgb(" + cr + ", " + cg + ", " + cb + ")";
+            } else if (ele == "menu") {
+                if (color == "r") {
+                    mr = value;
+                }
+                if (color == "g") {
+                    mg = value;
+                }
+                if (color == "b") {
+                    mb = value;
+                }
+                document.getElementById("footer").style.backgroundColor = "rgb(" + mr + ", " + mg + ", " + mb + ")";
+            }
+        }
+        function componentToHex(c) {
+            var hex = c.toString(16);
+            return hex.length == 1 ? "0" + hex : hex;
+        }
+        function rgbToHex(r, g, b) {
+            return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+        }
+        function hexToRgb(hex) {
+            var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
+        </script>
+    </div>
+</body>
+</html>
