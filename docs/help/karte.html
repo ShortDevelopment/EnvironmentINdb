@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Hilfe : EnvironmentINdb</title>
+    <style>
+        #menu{
+            height:100%;
+            width:20%;
+        }
+        a{
+            display:inline-block;
+            width:100%;
+            text-decoration:none;
+            color:black;
+        }
+        a:hover{
+            color:hsla(206, 100%, 28%, 1);
+            text-decoration:underline;            
+        }
+        ul{
+            padding:2px;
+            padding-left:20px;  
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        } 
+        li{
+            list-style-type:none;
+            /*list-style-position: inside;*/
+            position:relative;
+            padding:2px;            
+            cursor:pointer;            
+            font-family:Arial;
+        }
+        .collapsed label{
+            margin-left:15px;
+            padding:5px;
+            display:inline-block;
+        }
+        .collapsed label:before{
+            content:"";
+            position:absolute;
+            margin-left:-15px;
+            width:10px;
+            height:17px;
+            background-image:url('collapsed.png');            
+            background-size:cover;
+            background-position:center;
+            /* list-style-image: url('Media/collapsed.png'); */          
+        }
+        .collapsed ul{
+            display:none;
+        }
+        .expanded label{
+            background-color:hsla(206, 100%, 35%, 1);
+            color:white;
+            padding:5px;
+            display:inline-block;
+            width:100%;
+            margin-left:10px;
+        }  
+        .expanded:before{
+            content:"";
+            position:absolute;
+            margin-left:-5px;
+            width:10px;
+            height:17px;
+            background-image:url('expanded.png');            
+            background-size:cover;
+            background-position-x:center;
+            background-position-y:5px;
+            /* list-style-image: url('Media/collapsed.png'); */          
+        }
+        #content{
+            width:calc(80% - 50px);
+            height:calc(100% - 20px);
+            position:absolute;
+            top:10px;
+            right:10px;            
+        }
+        #content h1{
+            font-family:Segoe UI,SegoeUI,Segoe WP,Helvetica Neue,Helvetica,Tahoma,Arial,sans-serif;
+            margin-bottom:2px;
+            padding:0px;
+        }
+        #content p{
+            margin:0px;
+            margin-bottom:10px;
+            font-family:Segoe UI,SegoeUI,Segoe WP,Helvetica Neue,Helvetica,Tahoma,Arial,sans-serif;
+        }
+    </style>
+    <script>
+        function toogle(ele) {
+            if (ele.className == "collapsed") {
+                ele.className = "expanded";
+            } else {
+                ele.className = "collapsed";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="menu">
+        <ul>
+            <li class="expanded" onclick="toogle(this);">
+                <label>App</label>
+                <ul>
+                    <li><a href="index.html">Start</a></li>
+                    <li><a href="karte.html">Karte</a></li>
+                    <li><a href="settings.html">Einstellungen</a></li>
+                </ul>
+            </li>
+            <li class="collapsed" onclick="toogle(this);">
+                <label>Webseite</label>
+                <ul>
+                    <li><i>Keine Hilfe vorhanden</i></li>
+                </ul>
+            </li>
+        </ul>        
+	</div>
+    <div id="content">        
+        <h1>Karte</h1>
+        <p>
+            Hier werden die Messdaten aller Benutzer auf einer Karte dargestellt.
+            <br/>
+            Je nach Internetverbindung kann das Laden der inzwischen über 2.000 Messpunkte etwas länger dauern.
+        </p>
+        <p>
+            Und so funktioniert's:
+            <br />
+            <img style="width:100%;" src="karte1.PNG" />
+            <img style="width:100%;" src="karte2.PNG" />
+        </p>
+    </div>
+</body>
+</html>
