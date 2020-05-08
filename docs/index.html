@@ -2,11 +2,11 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <link href="Media/favicon.ico" rel="icon" />
-    <link href="Media/favicon.ico" rel="shortcut icon" />
-    <link href="Media/mess.png" rel="apple-touch-icon" />
+    <link href="favicon.ico" rel="icon" />
+    <link href="favicon.ico" rel="shortcut icon" />
+    <link href="mess.png" rel="apple-touch-icon" />
     <meta name="viewport" media="screen and (max-width: 1000px)" content="width=500px, initial-scale=0.6">
-    <title>EnvironmentINdb</title>
+    <title>Archiv | EnvironmentINdb</title>
     <style>
         body
         {
@@ -14,12 +14,6 @@
             font-family:sans-serif;
             line-height:20px;
             font-size:15px;
-        }
-        #myMap{
-            width:100%;
-            height:700px;
-            border:1px solid red;
-            display:block;    
         }
         #header{
             width:100%;
@@ -59,30 +53,13 @@
                 bottom:10px;
                 right:10px;
                 color:white;
-                display:none;
             }
         </style>
         <p id="countercontainer" style="font-family:consolas; text-align:right;">
             <label style="display:block; font-size:15px;">Wir haben schon</label>
             <label id="counter" style="display:block; font-size:25px; padding-left:70px;">loading...</label>
             <label style="display:block; font-size:15px;">Messpunkte!</label>
-        </p>
-        <script>
-            init();
-            function init() {
-                var a = new XMLHttpRequest();
-                a.open("GET", "http://umwelt.kurzweb.de/main.php", true);
-                a.onload = function() {
-                    document.getElementById("counter").innerHTML = a.responseText;
-                    console.info("Daten geladen!")
-                }
-                a.onerror = function() {
-                    console.error("Fehler beim Laden der Daten: " + a.response)
-                    document.getElementById("counter").innerHTML = '<i style="color:red;">Fehler</i>';
-                }
-                a.send();
-            }
-        </script>
+        </p>        
     </div>    
     <center style="margin-bottom:15px; border-spacing: 10px;">
         <p>
@@ -91,6 +68,241 @@
         </p>
         <iframe width="560" height="315" style="margin-top:10px" src="https://www.youtube-nocookie.com/embed/WxqFoGLFhfk?autoplay=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen autoplay></iframe>
 
+        <!-- Karte -->
+        <style>
+            @-webkit-keyframes slide {
+                0%{ left:-100px; }
+                100% { left: 100%; }
+            }
+            @keyframes slide {
+                0%{ left:-100px; }
+                100% { left: 100%; }
+            }
+            #MapContainer{
+                width:100%;
+                height:700px;
+                position:relative;
+            }
+            #loader{
+                position:absolute;
+                top:50%;
+                left:50%;
+                margin-top:-30px;
+                margin-left:-30px;
+                border: 8px solid #f3f3f3;
+                border-radius: 50%;
+                border-top: 8px solid #3498db;
+                width: 60px;
+                height: 60px;
+                -webkit-animation: spin 2s linear infinite; /* Safari */
+                animation: spin 2s linear infinite;
+            }
+            @-webkit-keyframes spin {
+                0% {
+                    -webkit-transform: rotate(0deg);
+                }
+
+                100% {
+                    -webkit-transform: rotate(360deg);
+                }
+            }
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg);
+                }
+
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+            #MapContainer #NavBar{
+                position:absolute;
+                top:10px;
+                left:10px;
+                transition:left 1s;
+                display:none;
+            }
+            #MapContainer #NavBar button{
+                border-radius:2px;    
+                background:linear-gradient(rgba(255, 255, 255, 0.30), rgba(255, 255, 255, 0.51));
+                height:30px;
+                border:1px solid gray;
+                display:inline-block;
+            }
+            #MapContainer #NavBar button:hover{
+                background:linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 1));
+                box-shadow: 1px 5px 9px #888888;
+                border:1px solid transparent;
+            }
+            .ContextMenu{
+                background:linear-gradient(rgba(255, 255, 255, 0.30), rgba(255, 255, 255, 0.51));
+                border-radius:5px;
+                border:1px solid gray;   
+                width:150px;
+                position:relative;
+            }
+            .ContextMenu input[type=button]{
+                width:100%;
+                border:0px;
+                background:transparent;
+                height:30px;
+
+            }
+            .ContextMenu input[type=button]:hover:enabled{
+                background-color:lightgray;
+            }
+            .ContextMenu hr{
+                margin:2px;
+            }
+        </style>
+        <script>
+            //Variablen, die "Global" benötigt werden
+            var pinInfobox;
+            var trafficManager;
+            var contextMenu;
+            var DataURL = "https://raw.githubusercontent.com/ShortDevelopment/EnvironmentINdb/master/data/Umwelt.xml";
+            var NoLabels = {
+                "version": "1.0",
+                "elements": {
+                    "mapElement": {
+                        "labelVisible": false
+                    }
+                }
+            }
+            function GetMap() {
+                //Laden der Karte
+                 map = new Microsoft.Maps.Map('#myMap', {
+                     showDashboard: false                 
+                 });
+                //Kartenoptionen  48.8909209,9.1332619,11z
+                var loc1 = new Microsoft.Maps.Location(48.8909209, 9.1332619);
+                 Microsoft.Maps.Events.addHandler(map, 'viewchangestart', function () { document.getElementById('loader').style.display = 'none'; document.getElementById('NavBar').style.display = 'block'; });
+                 map.setView({ center: loc1, zoom: 11, labelOverlay: Microsoft.Maps.LabelOverlay.hidden });
+                 map.setOptions({ customMapStyle: NoLabels }); // *1
+
+                //Modul für die Verkehrslage
+                 Microsoft.Maps.loadModule('Microsoft.Maps.Traffic', function () {                
+                     trafficManager = new Microsoft.Maps.Traffic.TrafficManager(map);                 
+                     //trafficManager.show();
+                 });
+                 Microsoft.Maps.Events.addHandler(map, 'rightclick', function (e) {
+                     contextMenu.setOptions({
+                         location: e.location,
+                         visible: true
+                     });
+                 });
+
+                //Definierung der Infobox, die angezeigt wird, wenn der Pushpin angeklickt wird
+                 contextMenu = new Microsoft.Maps.Infobox(map.getCenter(), {
+                     htmlContent: '<div class="ContextMenu"><input type="button" value="Heran zoomen" onclick="map.setView({zoom: map.getZoom() + 1});closeContextMenu();"/><input type="button" value="Heraus zoomen" onclick="map.setView({zoom: map.getZoom() - 1});closeContextMenu();"/><hr/><input type="button" value="KPFiMa-Medien" onclick="" disabled/></div>',
+                     visible: false
+                 });
+                 contextMenu.setMap(map);
+                 document.body.onmousedown = function () {
+                     closeContextMenu();
+                 };            
+
+                //Definierung einer 2. Infobox als ContextMenü
+                 pinInfobox = new Microsoft.Maps.Infobox(new Microsoft.Maps.Location(0, 0), { visible: false });
+                map.entities.push(pinInfobox);
+
+                var req = new XMLHttpRequest();
+                req.open("GET", DataURL);
+                req.overrideMimeType('text/xml');
+                req.onload = function () {
+                    document.getElementById("counter").innerHTML = req.responseText.split("<table").length - 1;
+                    console.info("Daten geladen!");
+                    let eles = req.responseXML.documentElement.getElementsByTagName("table");
+                    for (let i = 0; i < eles.length - 1; i++) {
+                        setTimeout(() => {
+                            let db = eles[i].children[0].innerHTML;
+                            let desc = eles[i].children[3].innerHTML;
+                            let länge = eles[i].children[1].innerHTML;
+                            let höhe = eles[i].children[2].innerHTML;
+                            //console.log(eles[i]);
+                            let loc = new Microsoft.Maps.Location(höhe, länge);
+                            let pin1 = new Microsoft.Maps.Pushpin(loc, { color: GetColor(db), size: 5, text: db, typeName: 'TypeBad' });
+                            pin1.Title = db + " db";
+                            pin1.Description = desc;
+                            map.entities.push(pin1);
+                            Microsoft.Maps.Events.addHandler(pin1, 'click', displayInfobox);
+                        }, 0);
+                    }
+                
+                }
+                req.onerror = function () {
+                    console.error("Fehler beim Laden der Daten!");
+                    document.getElementById("counter").innerHTML = '<i style="color:red;">Fehler</i>';
+                }
+                req.send();
+            }
+            function GetColor(db) {
+                let val = parseFloat(db);
+                let r = 0.0;
+                let g = 255.0;
+                let a = Math.pow(1.071, val + 7.0);
+                if (a > 255.0)
+                {
+                    r = 255.0;
+                    g = 255.0 + (255.0 - a);
+                }
+                else
+                {
+                    r = a;
+                }
+                if (g < 0.0) { g = 0.0; }
+                return 'rgb(' + Math.floor(r) + ',' + Math.floor(g) + ',0)';
+            }
+             function closeContextMenu() {
+                 contextMenu.setOptions({ visible: false });
+             }
+             function displayInfobox(e) {
+                 pinInfobox.setOptions({ title: e.target.Title, description: e.target.Description, visible: true, offset: new Microsoft.Maps.Point(0, 25) });
+                 pinInfobox.setLocation(e.target.getLocation());
+                 showInfos(e);
+             }
+             function showInfos(e) {
+                 document.getElementById("title").innerText = e.target.Title;
+                 document.getElementById("infos").innerText = e.target.Description;
+                 document.getElementById("db").innerText = e.target.getText() + "db";
+             }
+             function ToogleTraffic(ele){
+                 if (ele.innerText == "Verkehrslage einblenden") {
+                     ele.innerText = "Verkehrslage ausblenden"
+                     trafficManager.show();
+                     document.getElementById("NavBar").style.left = '110px';
+                 } else {
+                     ele.innerText = "Verkehrslage einblenden"
+                     trafficManager.hide();
+                     document.getElementById("NavBar").style.left = '10px';
+                 }
+             }
+             function ToogleLabels(ele) {
+                 if (ele.innerText == "Beschriftung einblenden") {
+                     ele.innerText = "Beschriftung ausblenden"                 
+                     map.setOptions({ customMapStyle: {} });
+                 } else {
+                     ele.innerText = "Beschriftung einblenden"                 
+                     map.setOptions({ customMapStyle: NoLabels });
+                 }             
+             }
+        </script>
+        <!-- Container für Karte und co -->
+        <center>
+            <div id="MapContainer">     
+                <!-- Karte -->         
+                <div id="myMap"></div> 
+                <!-- Buttons zur "Navigation" -->
+                <div id="NavBar">
+                    <button onclick="ToogleTraffic(this)">Verkehrslage einblenden</button>
+                    <button onclick="ToogleLabels(this)">Beschriftung einblenden</button>
+                </div>
+                <!-- Ladeanimation -->
+                <div id="loader" enabled></div>  
+            </div>
+        </center>
+        <!-- Bing Maps script -->
+        <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AmJaFwCkQefP9Gw3fcUAkCutEpGr9wlcJMk6fpumhzWtyfMaVz9g9WACrHmh7JK6' defer></script>  
     </center>
     </body>
 </html>
